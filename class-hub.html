@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Class Hub — La tua classe, a portata di mano</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --text: #172033;
+      --muted: #697386;
+      --border: #e6eaf1;
+      --blue: #2855d9;
+      --blue-soft: #edf2ff;
+      --green: #16804a;
+      --green-soft: #eaf8f0;
+      --purple: #7046c8;
+      --purple-soft: #f2edff;
+      --orange: #b85b16;
+      --orange-soft: #fff2e7;
+      --shadow: 0 8px 28px rgba(28, 42, 72, .06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      width: min(100% - 32px, 760px);
+      margin: 0 auto;
+      padding: 28px 0 24px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 38px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 6px 16px rgba(40, 85, 217, .22);
+    }
+
+    .brand-mark svg { width: 24px; height: 24px; }
+
+    .brand-name {
+      margin: 0;
+      font-size: 1.03rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+    }
+
+    .brand-caption {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: .78rem;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #20a464;
+    }
+
+    .intro { margin-bottom: 24px; }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: .76rem;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 620px;
+      margin: 0;
+      font-size: clamp(2rem, 7vw, 3.15rem);
+      line-height: 1.08;
+      letter-spacing: -.055em;
+    }
+
+    .intro-text {
+      max-width: 510px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .tile {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 190px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--surface);
+      color: inherit;
+      text-align: left;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .tile:hover {
+      transform: translateY(-3px);
+      border-color: #cbd5e7;
+      box-shadow: 0 12px 30px rgba(28, 42, 72, .1);
+    }
+
+    .tile:focus-visible {
+      outline: 3px solid #93b4ff;
+      outline-offset: 3px;
+    }
+
+    .tile-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 22px;
+      border-radius: 15px;
+    }
+
+    .tile-icon svg { width: 25px; height: 25px; }
+
+    .calendar .tile-icon { background: var(--blue-soft); color: var(--blue); }
+    .rules .tile-icon { background: var(--green-soft); color: var(--green); }
+    .register .tile-icon { background: var(--purple-soft); color: var(--purple); }
+    .suggestions .tile-icon { background: var(--orange-soft); color: var(--orange); }
+
+    .tile-title {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 750;
+      letter-spacing: -.02em;
+    }
+
+    .tile-description {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: .87rem;
+      line-height: 1.45;
+    }
+
+    .tile-arrow {
+      align-self: flex-end;
+      width: 20px;
+      height: 20px;
+      margin-top: auto;
+      color: var(--muted);
+    }
+
+    .note {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-top: 22px;
+      padding: 15px 16px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.5;
+    }
+
+    .note svg { flex: 0 0 19px; width: 19px; height: 19px; margin-top: 1px; }
+    .note p { margin: 0; }
+
+    footer {
+      padding: 28px 0 4px;
+      color: #8a93a3;
+      text-align: center;
+      font-size: .78rem;
+    }
+
+    @media (max-width: 440px) {
+      .page { width: min(100% - 24px, 760px); padding-top: 20px; }
+      .topbar { margin-bottom: 32px; }
+      .status { display: none; }
+      .grid { gap: 10px; }
+      .tile { min-height: 176px; padding: 16px; border-radius: 18px; }
+      .tile-icon { width: 44px; height: 44px; margin-bottom: 18px; }
+      .tile-title { font-size: .98rem; }
+      .tile-description { font-size: .81rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand" aria-label="Class Hub">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3.5 6.5c3.2-1.4 6-.8 8.5 1.2v12c-2.5-2-5.3-2.6-8.5-1.2z"/>
+            <path d="M20.5 6.5c-3.2-1.4-6-.8-8.5 1.2v12c2.5-2 5.3-2.6 8.5-1.2z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="brand-name">CLASS HUB</p>
+          <p class="brand-caption">Lo spazio digitale della classe</p>
+        </div>
+      </div>
+      <div class="status"><span class="status-dot"></span> Risorse della classe</div>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow">Benvenuti</p>
+      <h1>Tutto quello che serve,<br>in un unico posto.</h1>
+      <p class="intro-text">Accedi rapidamente alle risorse, alle informazioni e agli strumenti utili per la classe.</p>
+    </section>
+
+    <nav class="grid" aria-label="Risorse della classe">
+      <!-- Sostituisci gli href="#" con gli indirizzi reali quando saranno disponibili. -->
+      <a class="tile calendar" href="https://calendar.google.com/calendar/u/0?cid=OTkyYTIzNzBjZDI0ZTdlNTE5N2YzNjhlMmY3MjY1NjE0ZDZmZDQ5Y2E4OWVkNTlkMjI1Nzk5NjhjNGVlNzFhY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" rel="noopener noreferrer" aria-label="Calendario verifiche — apre in una nuova scheda">
+        <span class="tile-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3.5" y="5" width="17" height="16" rx="2.5"/>
+            <path d="M7.5 3v4M16.5 3v4M3.5 9.5h17"/>
+            <path d="m8.5 14 2 2 5-5"/>
+          </svg>
+        </span>
+        <h2 class="tile-title">Calendario verifiche</h2>
+        <p class="tile-description">Verifiche, interrogazioni e scadenze.</p>
+        <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+      </a>
+
+      <a class="tile rules" href="https://notebook.google.com/notebook/94c9ffc9-bb25-4c50-893e-927580135507" target="_blank" rel="noopener noreferrer" aria-label="Regolamenti — apre in una nuova scheda">
+        <span class="tile-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 3.5h10l4 4V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z"/>
+            <path d="M14.5 3.5V8H19M8 12h8M8 16h8"/>
+          </svg>
+        </span>
+        <h2 class="tile-title">Regolamenti</h2>
+        <p class="tile-description">Regole condivise e documenti utili.</p>
+        <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+      </a>
+
+      <a class="tile register" href="https://web.spaggiari.eu/home/app/default/login.php" target="_blank" rel="noopener noreferrer" aria-label="Registro elettronico ClasseViva — apre in una nuova scheda">
+        <span class="tile-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="3.5" width="16" height="17" rx="2.5"/>
+            <path d="M8 7.5h8M8 11.5h3M8 15.5h8M15 11.5h1"/>
+          </svg>
+        </span>
+        <h2 class="tile-title">Registro elettronico</h2>
+        <p class="tile-description">Accedi a voti, compiti e comunicazioni.</p>
+        <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+      </a>
+
+      <a class="tile suggestions" href="https://forms.gle/EFDT3P1ou1GKTYxJ7" target="_blank" rel="noopener noreferrer" aria-label="Suggerimenti — apre in una nuova scheda">
+        <span class="tile-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H7l-3.5 2v-5A7.5 7.5 0 1 1 20 11.5Z"/>
+            <path d="M12.5 7.5v5M12.5 15.5h.01"/>
+          </svg>
+        </span>
+        <h2 class="tile-title">Suggerimenti</h2>
+        <p class="tile-description">Proponi idee e segnala cosa migliorare.</p>
+        <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+      </a>
+    </nav>
+
+    <aside class="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg>
+      <p><strong>Bozza in costruzione.</strong> I quattro pulsanti aprono i rispettivi servizi in una nuova scheda. Puoi modificare gli indirizzi direttamente nel codice HTML.</p>
+    </aside>
+
+    <footer>Class Hub · Uno spazio condiviso per la classe</footer>
+  </main>
+</body>
+</html>
