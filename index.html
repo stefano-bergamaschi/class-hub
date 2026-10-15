@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f8fc">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon.svg">
   <meta name="description" content="Lo spazio pratico della classe: verifiche, segnalazioni e servizi utili.">
   <title>Class Hub</title>
   <style>
@@ -74,6 +77,7 @@
     setThemeButton();
     themeButton.addEventListener('click',()=>{const dark=document.documentElement.dataset.theme==='dark';if(dark)delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme='dark';localStorage.setItem('class-space-theme',dark?'light':'dark');setThemeButton()});
     showView(location.hash.slice(1)||'home',false);
+    if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(error => console.warn('Service worker non disponibile:', error)));
   </script>
 </body>
 </html>
