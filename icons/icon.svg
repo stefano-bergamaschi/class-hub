@@ -1,9 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
-  <title id="title">Class Hub — icona collegamento</title>
-  <desc id="desc">Due anelli azzurri intrecciati con un’intersezione blu, su fondo bianco.</desc>
-  <rect width="512" height="512" fill="#ffffff"/>
-  <rect x="74" y="183" width="260" height="146" rx="73" transform="rotate(-43 204 256)" fill="#ffffff" stroke="#C9E3FF" stroke-width="34"/>
-  <rect x="178" y="183" width="260" height="146" rx="73" transform="rotate(43 308 256)" fill="#ffffff" stroke="#8FC5FF" stroke-width="34"/>
-  <path d="M220 256h72" fill="none" stroke="#1A73E8" stroke-width="42" stroke-linecap="round"/>
-  <circle cx="256" cy="256" r="7" fill="#ffffff"/>
+  <title id="title">Class Hub — logo collegamento</title>
+  <desc id="desc">Due anelli intrecciati azzurri con segmenti interni e giunzione blu, su fondo bianco.</desc>
+  <rect width="512" height="512" fill="#fff"/>
+  <g transform="rotate(-43 205 256)">
+    <rect x="74" y="181" width="262" height="150" rx="75" fill="#CFE5FF"/>
+    <rect x="116" y="223" width="178" height="66" rx="33" fill="#fff"/>
+    <rect x="142" y="240" width="130" height="32" rx="16" fill="#8FC5FF"/>
+  </g>
+  <g transform="rotate(43 307 256)">
+    <rect x="176" y="181" width="262" height="150" rx="75" fill="#CFE5FF"/>
+    <rect x="218" y="223" width="178" height="66" rx="33" fill="#fff"/>
+    <rect x="244" y="240" width="130" height="32" rx="16" fill="#8FC5FF"/>
+  </g>
+  <path d="M220 256h72" fill="none" stroke="#1A73E8" stroke-width="40" stroke-linecap="round"/>
 </svg>
