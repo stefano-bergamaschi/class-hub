@@ -1,324 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f7fb">
-  <title>Class Hub — La tua classe, a portata di mano</title>
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="Lo spazio pratico della classe: verifiche, segnalazioni e servizi utili.">
+  <title>Class Hub</title>
   <style>
-    :root {
-      color-scheme: light;
-      --bg: #f5f7fb;
-      --surface: #ffffff;
-      --text: #172033;
-      --muted: #697386;
-      --border: #e6eaf1;
-      --blue: #2855d9;
-      --blue-soft: #edf2ff;
-      --green: #16804a;
-      --green-soft: #eaf8f0;
-      --purple: #7046c8;
-      --purple-soft: #f2edff;
-      --orange: #b85b16;
-      --orange-soft: #fff2e7;
-      --shadow: 0 8px 28px rgba(28, 42, 72, .06);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .page {
-      width: min(100% - 32px, 760px);
-      margin: 0 auto;
-      padding: 28px 0 24px;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 38px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      flex: 0 0 44px;
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: var(--blue);
-      color: white;
-      box-shadow: 0 6px 16px rgba(40, 85, 217, .22);
-    }
-
-    .brand-mark svg { width: 24px; height: 24px; }
-
-    .brand-name {
-      margin: 0;
-      font-size: 1.03rem;
-      font-weight: 800;
-      letter-spacing: .07em;
-    }
-
-    .brand-caption {
-      margin: 3px 0 0;
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--muted);
-      font-size: .78rem;
-      white-space: nowrap;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #20a464;
-    }
-
-    .intro { margin-bottom: 24px; }
-
-    .eyebrow {
-      margin: 0 0 10px;
-      color: var(--blue);
-      font-size: .76rem;
-      font-weight: 750;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 620px;
-      margin: 0;
-      font-size: clamp(2rem, 7vw, 3.15rem);
-      line-height: 1.08;
-      letter-spacing: -.055em;
-    }
-
-    .intro-text {
-      max-width: 510px;
-      margin: 14px 0 0;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .tile {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      min-height: 190px;
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: var(--surface);
-      color: inherit;
-      text-align: left;
-      text-decoration: none;
-      box-shadow: var(--shadow);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .tile:hover {
-      transform: translateY(-3px);
-      border-color: #cbd5e7;
-      box-shadow: 0 12px 30px rgba(28, 42, 72, .1);
-    }
-
-    .tile:focus-visible {
-      outline: 3px solid #93b4ff;
-      outline-offset: 3px;
-    }
-
-    .tile-icon {
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      margin-bottom: 22px;
-      border-radius: 15px;
-    }
-
-    .tile-icon svg { width: 25px; height: 25px; }
-
-    .calendar .tile-icon { background: var(--blue-soft); color: var(--blue); }
-    .rules .tile-icon { background: var(--green-soft); color: var(--green); }
-    .register .tile-icon { background: var(--purple-soft); color: var(--purple); }
-    .suggestions .tile-icon { background: var(--orange-soft); color: var(--orange); }
-
-    .tile-title {
-      margin: 0;
-      font-size: 1.08rem;
-      font-weight: 750;
-      letter-spacing: -.02em;
-    }
-
-    .tile-description {
-      margin: 7px 0 0;
-      color: var(--muted);
-      font-size: .87rem;
-      line-height: 1.45;
-    }
-
-    .tile-arrow {
-      align-self: flex-end;
-      width: 20px;
-      height: 20px;
-      margin-top: auto;
-      color: var(--muted);
-    }
-
-    .note {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      margin-top: 22px;
-      padding: 15px 16px;
-      border: 1px dashed #cbd5e1;
-      border-radius: 16px;
-      color: var(--muted);
-      font-size: .85rem;
-      line-height: 1.5;
-    }
-
-    .note svg { flex: 0 0 19px; width: 19px; height: 19px; margin-top: 1px; }
-    .note p { margin: 0; }
-
-    footer {
-      padding: 28px 0 4px;
-      color: #8a93a3;
-      text-align: center;
-      font-size: .78rem;
-    }
-
-    @media (max-width: 440px) {
-      .page { width: min(100% - 24px, 760px); padding-top: 20px; }
-      .topbar { margin-bottom: 32px; }
-      .status { display: none; }
-      .grid { gap: 10px; }
-      .tile { min-height: 176px; padding: 16px; border-radius: 18px; }
-      .tile-icon { width: 44px; height: 44px; margin-bottom: 18px; }
-      .tile-title { font-size: .98rem; }
-      .tile-description { font-size: .81rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
-    }
+    :root{color-scheme:light;--bg:#f7f8fc;--surface:#fff;--surface-2:#eef2f9;--text:#202124;--muted:#5f6368;--line:#e4e7ee;--blue:#1a73e8;--blue-soft:#e8f0fe;--green:#188038;--green-soft:#e6f4ea;--yellow:#f9ab00;--yellow-soft:#fef7e0;--purple:#8430ce;--purple-soft:#f3e8fd;--shadow:0 1px 2px #20212412,0 4px 14px #2021240a}
+    [data-theme="dark"]{color-scheme:dark;--bg:#17191d;--surface:#22252b;--surface-2:#2c3038;--text:#e8eaed;--muted:#bdc1c6;--line:#3b4048;--blue:#8ab4f8;--blue-soft:#26364e;--green:#81c995;--green-soft:#20372a;--yellow:#fdd663;--yellow-soft:#40371d;--purple:#d7aefb;--purple-soft:#39284a;--shadow:0 1px 3px #0005,0 6px 18px #0002}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,Roboto,"Google Sans",Arial,sans-serif;transition:background .2s,color .2s}button,a{font:inherit}button{color:inherit}.app{min-height:100vh}.topbar{height:72px;position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 30px;gap:16px}.brand{display:flex;align-items:center;gap:12px;min-width:238px}.brand-mark{width:38px;height:38px;border-radius:13px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center}.brand h1{font-size:18px;letter-spacing:-.3px;margin:0;font-weight:600}.brand small{display:block;color:var(--muted);font-size:12px;margin-top:-2px}.top-spacer{flex:1}.top-note{color:var(--muted);font-size:13px}.icon-button{border:0;background:transparent;border-radius:50%;width:42px;height:42px;display:grid;place-items:center;cursor:pointer}.icon-button:hover{background:var(--surface-2)}.layout{display:flex;max-width:1500px;margin:auto}.sidebar{width:256px;flex:none;padding:24px 14px 30px 22px;position:sticky;top:72px;height:calc(100vh - 72px)}.nav-label{padding:4px 14px 10px;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}.nav-list{display:grid;gap:6px}.nav-item{display:flex;align-items:center;gap:14px;border:0;text-decoration:none;color:var(--muted);background:transparent;text-align:left;padding:12px 16px;border-radius:30px;cursor:pointer;font-weight:500}.nav-item:hover{background:var(--surface-2);color:var(--text)}.nav-item.active{color:var(--blue);background:var(--blue-soft)}.nav-item svg{width:20px;height:20px;flex:none}.side-tip{position:absolute;bottom:28px;left:28px;right:28px;padding:16px;border-radius:18px;background:var(--surface);box-shadow:var(--shadow);color:var(--muted);font-size:12px}.side-tip strong{display:block;color:var(--text);margin:0 0 3px}.content{width:min(100%,1120px);padding:36px 36px 64px;margin:0 auto}.view{display:none}.view.active{display:block}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);font-weight:700;margin:0 0 8px}.page-title{font-size:clamp(28px,4vw,40px);line-height:1.14;letter-spacing:-1.1px;margin:0 0 10px;font-weight:600}.page-lead{max-width:680px;color:var(--muted);margin:0 0 30px;font-size:16px}.welcome{border-radius:28px;padding:30px 34px;margin-bottom:30px;position:relative;overflow:hidden;background:linear-gradient(115deg,var(--blue-soft),var(--surface) 78%);border:1px solid color-mix(in srgb,var(--blue) 12%,var(--line))}.welcome:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-55px;top:-115px;background:color-mix(in srgb,var(--blue) 10%,transparent)}.welcome .page-lead{margin-bottom:0}.section-heading{font-size:19px;font-weight:600;margin:30px 0 15px;letter-spacing:-.3px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.action-card{min-height:225px;padding:22px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow);text-decoration:none;color:var(--text);display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s;cursor:pointer}.action-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px #20212418}.card-icon{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;margin-bottom:18px}.card-icon svg{width:25px;height:25px}.tone-blue{background:var(--blue-soft);color:var(--blue)}.tone-green{background:var(--green-soft);color:var(--green)}.tone-yellow{background:var(--yellow-soft);color:var(--yellow)}.tone-purple{background:var(--purple-soft);color:var(--purple)}.card-title{font-size:18px;font-weight:600;margin:0 0 6px}.card-copy{color:var(--muted);font-size:14px;margin:0}.card-arrow{margin-top:auto;padding-top:15px;color:var(--blue);font-weight:600;font-size:13px}.quick-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.quick-link{display:flex;align-items:center;gap:13px;padding:14px 16px;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:17px}.quick-link:hover{background:var(--surface-2)}.quick-link .card-icon{width:42px;height:42px;border-radius:14px;margin:0}.quick-link .card-icon svg{width:21px;height:21px}.quick-link strong{display:block;font-size:14px}.quick-link small{color:var(--muted);font-size:12px}.callout{padding:17px 20px;border-radius:16px;background:var(--surface-2);color:var(--muted);margin-top:25px;font-size:14px}.embed-shell{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:var(--shadow);overflow:hidden}.calendar-frame{display:block;width:100%;height:min(72vh,760px);min-height:500px;border:0;border-radius:12px;background:var(--surface)}.form-frame{display:block;width:100%;height:1580px;border:0;border-radius:12px;background:var(--surface)}.embed-caption{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:7px 5px 14px;color:var(--muted);font-size:13px}.external{color:var(--blue);text-decoration:none;font-weight:600;white-space:nowrap}.external:hover{text-decoration:underline}.links-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.resource-card{display:flex;align-items:center;gap:17px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:20px;text-decoration:none;color:var(--text);box-shadow:var(--shadow);transition:transform .15s}.resource-card:hover{transform:translateY(-2px)}.resource-card .card-icon{margin:0;width:54px;height:54px}.resource-card h3{font-size:16px;margin:0 0 3px}.resource-card p{font-size:13px;color:var(--muted);margin:0}.resource-arrow{margin-left:auto;color:var(--muted);font-size:20px}.footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-size:12px;margin-top:42px}.mobile-nav{display:none}
+    @media(max-width:900px){.sidebar{width:220px}.content{padding:30px 24px 50px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-links{grid-template-columns:repeat(2,minmax(0,1fr))}.top-note{display:none}}
+    @media(max-width:640px){html{scroll-padding-top:18px}.topbar{height:62px;padding:0 16px}.brand{min-width:0}.brand-mark{width:35px;height:35px}.brand h1{font-size:16px}.brand small{font-size:11px}.layout{display:block}.sidebar{display:none}.content{padding:24px 17px calc(92px + env(safe-area-inset-bottom))}.welcome{padding:23px 21px;border-radius:22px;margin-bottom:25px}.page-lead{font-size:14px;margin-bottom:24px}.cards{grid-template-columns:1fr;gap:12px}.action-card{min-height:0;padding:18px;display:grid;grid-template-columns:50px 1fr;column-gap:14px;align-items:center;border-radius:19px}.action-card .card-icon{grid-row:1/3;margin:0;width:50px;height:50px}.action-card .card-title{align-self:end;font-size:16px}.action-card .card-copy{align-self:start}.action-card .card-arrow{display:none}.quick-links{grid-template-columns:1fr;gap:9px}.quick-link{padding:12px 14px}.section-heading{margin-top:26px}.links-grid{grid-template-columns:1fr;gap:10px}.resource-card{padding:16px;border-radius:17px}.embed-shell{padding:8px;border-radius:18px}.calendar-frame{height:65vh;min-height:440px}.form-frame{height:1600px}.embed-caption{font-size:12px;align-items:flex-start}.mobile-nav{position:fixed;z-index:8;bottom:0;left:0;right:0;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(18px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}.mobile-nav .nav-item{flex-direction:column;gap:3px;padding:6px 3px;border-radius:15px;font-size:10px}.mobile-nav .nav-item svg{width:21px;height:21px}.footer{margin-top:28px}.page-title{font-size:31px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
 <body>
-  <main class="page">
+  <div class="app" id="app">
     <header class="topbar">
-      <div class="brand" aria-label="Class Hub">
-        <div class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3.5 6.5c3.2-1.4 6-.8 8.5 1.2v12c-2.5-2-5.3-2.6-8.5-1.2z"/>
-            <path d="M20.5 6.5c-3.2-1.4-6-.8-8.5 1.2v12c2.5-2 5.3-2.6 8.5-1.2z"/>
-          </svg>
-        </div>
-        <div>
-          <p class="brand-name">CLASS HUB</p>
-          <p class="brand-caption">Lo spazio digitale della classe</p>
-        </div>
-      </div>
-      <div class="status"><span class="status-dot"></span> Risorse della classe</div>
+      <div class="brand"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="23" height="23" fill="currentColor"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 2a7 7 0 0 1 6.92 6H13a1 1 0 0 0-1 1v7a7 7 0 0 1 0-14Z"/></svg></div><div><h1>Class Hub</h1><small>Il punto di riferimento della classe</small></div></div>
+      <div class="top-spacer"></div><div class="top-note">Tutto quello che serve, in un solo posto</div>
+      <button class="icon-button" id="themeToggle" aria-label="Attiva tema scuro" title="Cambia tema"><svg id="themeIcon" viewBox="0 0 24 24" width="21" height="21" fill="currentColor"><path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm0 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm8 4a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2h1ZM5 11a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2h1Zm12.66-5.66a1 1 0 0 1 0 1.42l-.7.7a1 1 0 1 1-1.42-1.42l.7-.7a1 1 0 0 1 1.42 0ZM8.46 15.54a1 1 0 0 1 0 1.42l-.7.7a1 1 0 1 1-1.42-1.42l.7-.7a1 1 0 0 1 1.42 0Zm9.2 2.12a1 1 0 0 1-1.42 0l-.7-.7a1 1 0 1 1 1.42-1.42l.7.7a1 1 0 0 1 0 1.42ZM8.46 8.46a1 1 0 0 1-1.42 0l-.7-.7a1 1 0 1 1 1.42-1.42l.7.7a1 1 0 0 1 0 1.42ZM12 19a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Z"/></svg></button>
     </header>
-
-    <section class="intro">
-      <p class="eyebrow">Benvenuti</p>
-      <h1>Tutto quello che serve,<br>in un unico posto.</h1>
-      <p class="intro-text">Accedi rapidamente alle risorse, alle informazioni e agli strumenti utili per la classe.</p>
-    </section>
-
-    <nav class="grid" aria-label="Risorse della classe">
-      <!-- Sostituisci gli href="#" con gli indirizzi reali quando saranno disponibili. -->
-      <a class="tile calendar" href="https://calendar.google.com/calendar/u/0?cid=OTkyYTIzNzBjZDI0ZTdlNTE5N2YzNjhlMmY3MjY1NjE0ZDZmZDQ5Y2E4OWVkNTlkMjI1Nzk5NjhjNGVlNzFhY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" rel="noopener noreferrer" aria-label="Calendario verifiche — apre in una nuova scheda">
-        <span class="tile-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3.5" y="5" width="17" height="16" rx="2.5"/>
-            <path d="M7.5 3v4M16.5 3v4M3.5 9.5h17"/>
-            <path d="m8.5 14 2 2 5-5"/>
-          </svg>
-        </span>
-        <h2 class="tile-title">Calendario verifiche</h2>
-        <p class="tile-description">Verifiche, interrogazioni e scadenze.</p>
-        <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
-      </a>
-
-      <a class="tile rules" href="https://notebook.google.com/notebook/94c9ffc9-bb25-4c50-893e-927580135507" target="_blank" rel="noopener noreferrer" aria-label="Regolamenti — apre in una nuova scheda">
-        <span class="tile-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 3.5h10l4 4V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z"/>
-            <path d="M14.5 3.5V8H19M8 12h8M8 16h8"/>
-          </svg>
-        </span>
-        <h2 class="tile-title">Regolamenti</h2>
-        <p class="tile-description">Regole condivise e documenti utili.</p>
-        <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
-      </a>
-
-      <a class="tile register" href="https://web.spaggiari.eu/home/app/default/login.php" target="_blank" rel="noopener noreferrer" aria-label="Registro elettronico ClasseViva — apre in una nuova scheda">
-        <span class="tile-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="3.5" width="16" height="17" rx="2.5"/>
-            <path d="M8 7.5h8M8 11.5h3M8 15.5h8M15 11.5h1"/>
-          </svg>
-        </span>
-        <h2 class="tile-title">Registro elettronico</h2>
-        <p class="tile-description">Accedi a voti, compiti e comunicazioni.</p>
-        <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
-      </a>
-
-      <a class="tile suggestions" href="https://forms.gle/EFDT3P1ou1GKTYxJ7" target="_blank" rel="noopener noreferrer" aria-label="Suggerimenti — apre in una nuova scheda">
-        <span class="tile-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H7l-3.5 2v-5A7.5 7.5 0 1 1 20 11.5Z"/>
-            <path d="M12.5 7.5v5M12.5 15.5h.01"/>
-          </svg>
-        </span>
-        <h2 class="tile-title">Suggerimenti</h2>
-        <p class="tile-description">Proponi idee e segnala cosa migliorare.</p>
-        <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
-      </a>
-    </nav>
-
-    <aside class="note">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg>
-      <p><strong>Bozza in costruzione.</strong> I quattro pulsanti aprono i rispettivi servizi in una nuova scheda. Puoi modificare gli indirizzi direttamente nel codice HTML.</p>
-    </aside>
-
-    <footer>Class Hub · Uno spazio condiviso per la classe</footer>
-  </main>
+    <div class="layout">
+      <aside class="sidebar" aria-label="Navigazione principale"><div class="nav-label">Workspace</div><nav class="nav-list">
+        <a class="nav-item active" href="#home" data-view="home"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 9 8h-3v9h-5v-6h-2v6H6v-9H3l9-8Z"/></svg>Home</a>
+        <a class="nav-item" href="#calendar" data-view="calendar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1Zm12 8H5v9h14v-9ZM7 12h3v3H7v-3Zm5 0h3v3h-3v-3Z"/></svg>Calendario</a>
+        <a class="nav-item" href="#reports" data-view="reports"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z"/></svg>Segnalazioni</a>
+        <a class="nav-item" href="#links" data-view="links"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 13.41a1.99 1.99 0 0 0 2.82 0l3-3a2 2 0 0 0-2.83-2.83l-1.17 1.17a1 1 0 1 1-1.42-1.42l1.18-1.17a4 4 0 0 1 5.65 5.66l-3 3a4 4 0 0 1-5.66 0 1 1 0 0 1 1.42-1.41ZM13.41 10.59a1.99 1.99 0 0 0-2.82 0l-3 3a2 2 0 0 0 2.83 2.83l1.17-1.17a1 1 0 0 1 1.42 1.42l-1.18 1.17a4 4 0 0 1-5.65-5.66l3-3a4 4 0 0 1 5.66 0 1 1 0 0 1-1.42 1.41Z"/></svg>Link utili</a>
+      </nav><div class="side-tip"><strong>Un posto per tutti</strong>Controlla le prossime verifiche e trova subito i servizi della classe.</div></aside>
+      <main class="content">
+        <section class="view active" id="view-home" data-section="home">
+          <div class="welcome"><p class="eyebrow">Workspace della classe</p><h2 class="page-title">Ciao, benvenuto!</h2><p class="page-lead">Uno spazio semplice per restare aggiornati, segnalare un problema e raggiungere gli strumenti che usiamo ogni giorno.</p></div>
+          <h2 class="section-heading">Da dove vuoi iniziare?</h2>
+          <div class="cards">
+            <a class="action-card" href="#calendar" data-view="calendar"><span class="card-icon tone-blue"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1Zm12 8H5v9h14v-9Zm-12 2h3v3H7v-3Z"/></svg></span><span class="card-title">Calendario</span><span class="card-copy">Verifiche, compiti e appuntamenti della classe.</span><span class="card-arrow">Apri calendario&nbsp; →</span></a>
+            <a class="action-card" href="#reports" data-view="reports"><span class="card-icon tone-green"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z"/></svg></span><span class="card-title">Segnalazioni</span><span class="card-copy">Comunica un problema o condividi una proposta.</span><span class="card-arrow">Compila il modulo&nbsp; →</span></a>
+            <a class="action-card" href="#links" data-view="links"><span class="card-icon tone-yellow"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 13.41a1.99 1.99 0 0 0 2.82 0l3-3a2 2 0 0 0-2.83-2.83l-1.17 1.17a1 1 0 1 1-1.42-1.42l1.18-1.17a4 4 0 0 1 5.65 5.66l-3 3a4 4 0 0 1-5.66 0 1 1 0 0 1 1.42-1.41ZM13.41 10.59a1.99 1.99 0 0 0-2.82 0l-3 3a2 2 0 0 0 2.83 2.83l1.17-1.17a1 1 0 0 1 1.42 1.42l-1.18 1.17a4 4 0 0 1-5.65-5.66l3-3a4 4 0 0 1 5.66 0 1 1 0 0 1-1.42 1.41Z"/></svg></span><span class="card-title">Link utili</span><span class="card-copy">Apri Drive, Classroom, registro e altri strumenti.</span><span class="card-arrow">Vai ai servizi&nbsp; →</span></a>
+          </div>
+          <h2 class="section-heading">Accesso rapido</h2><div class="quick-links" id="quickLinks"></div>
+          <div class="callout">💡 <strong>Un consiglio:</strong> aggiungi questa pagina ai preferiti per ritrovare tutto più velocemente.</div>
+        </section>
+        <section class="view" id="view-calendar" data-section="calendar"><p class="eyebrow">Date e scadenze</p><h2 class="page-title">Calendario della classe</h2><p class="page-lead">Qui trovi le verifiche, i compiti e gli appuntamenti condivisi. Apri il calendario completo se vuoi aggiungerlo al tuo account.</p><div class="embed-caption"><span>Calendario condiviso · fuso orario Roma</span><a class="external" href="https://calendar.google.com/calendar/embed?src=992a2370cd24e7e5197f368e2f7265614d6fd49ca89ed59d22579968c4ee71ac%40group.calendar.google.com&amp;ctz=Europe%2FRome" target="_blank" rel="noopener">Apri in una nuova scheda ↗</a></div><div class="embed-shell"><iframe class="calendar-frame" title="Calendario Google della classe" src="https://calendar.google.com/calendar/embed?src=992a2370cd24e7e5197f368e2f7265614d6fd49ca89ed59d22579968c4ee71ac%40group.calendar.google.com&amp;ctz=Europe%2FRome" style="border: 0" width="800" height="600" frameborder="0" scrolling="no" loading="lazy"></iframe></div></section>
+        <section class="view" id="view-reports" data-section="reports"><p class="eyebrow">La voce della classe</p><h2 class="page-title">Segnalazioni</h2><p class="page-lead">Hai notato qualcosa da sistemare o vuoi proporre un’idea? Compila il modulo: ci aiuterà a tenere lo spazio della classe aggiornato.</p><div class="embed-caption"><span>Le risposte vengono raccolte nel modulo condiviso.</span><a class="external" href="https://docs.google.com/forms/d/e/1FAIpQLSfbPTxOZrco__IhXjN1OWRujFk-9xTD2gW5tv_VSYIH_LyZ6w/viewform" target="_blank" rel="noopener">Apri il modulo ↗</a></div><div class="embed-shell"><iframe class="form-frame" title="Modulo per le segnalazioni della classe" src="https://docs.google.com/forms/d/e/1FAIpQLSfbPTxOZrco__IhXjN1OWRujFk-9xTD2gW5tv_VSYIH_LyZ6w/viewform?embedded=true" width="640" height="1564" frameborder="0" marginheight="0" marginwidth="0" loading="lazy">Loading…</iframe></div></section>
+        <section class="view" id="view-links" data-section="links"><p class="eyebrow">Strumenti quotidiani</p><h2 class="page-title">Link utili</h2><p class="page-lead">I servizi e le risorse che usiamo più spesso, raccolti in un unico posto.</p><div class="links-grid" id="allLinks"></div><div class="callout">I link ai servizi della scuola possono essere personalizzati nel blocco <strong>LINK CONFIG</strong> all’interno del file HTML.</div></section>
+        <footer class="footer">Class Hub · Creato per rendere le informazioni più facili da trovare.</footer>
+      </main>
+    </div>
+    <nav class="mobile-nav" aria-label="Navigazione principale su smartphone"><a class="nav-item active" href="#home" data-view="home"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 9 8h-3v9h-5v-6h-2v6H6v-9H3l9-8Z"/></svg>Home</a><a class="nav-item" href="#calendar" data-view="calendar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1Zm12 8H5v9h14v-9Z"/></svg>Calendario</a><a class="nav-item" href="#reports" data-view="reports"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z"/></svg>Segnala</a><a class="nav-item" href="#links" data-view="links"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 13.41a1.99 1.99 0 0 0 2.82 0l3-3a2 2 0 0 0-2.83-2.83l-1.17 1.17a1 1 0 1 1-1.42-1.42l1.18-1.17a4 4 0 0 1 5.65 5.66l-3 3a4 4 0 0 1-5.66 0 1 1 0 0 1 1.42-1.41Z"/></svg>Registro</a></nav>
+  </div>
+  <script>
+    // LINK CONFIG — l’unico collegamento ai servizi per ora è il login ufficiale di ClasseViva.
+    const resources = [
+      {name:'Registro elettronico ClasseViva',description:'Accedi a voti, assenze e comunicazioni',url:'https://web.spaggiari.eu/',icon:'✓',tone:'purple'}
+    ];
+    const linkIcon = (symbol) => `<span aria-hidden="true" style="font-size:22px;font-weight:600">${symbol}</span>`;
+    document.getElementById('quickLinks').innerHTML = resources.slice(0,3).map(item => `<a class="quick-link" href="${item.url}" target="_blank" rel="noopener"><span class="card-icon tone-${item.tone}">${linkIcon(item.icon)}</span><span><strong>${item.name}</strong><small>${item.description}</small></span></a>`).join('');
+    document.getElementById('allLinks').innerHTML = resources.map(item => `<a class="resource-card" href="${item.url}" target="_blank" rel="noopener"><span class="card-icon tone-${item.tone}">${linkIcon(item.icon)}</span><span><h3>${item.name}</h3><p>${item.description}</p></span><span class="resource-arrow" aria-hidden="true">↗</span></a>`).join('');
+    const navItems = [...document.querySelectorAll('[data-view]')];
+    function showView(view, updateHash=true) {
+      if (!document.querySelector(`[data-section="${view}"]`)) view='home';
+      document.querySelectorAll('.view').forEach(section => section.classList.toggle('active', section.dataset.section===view));
+      navItems.forEach(item => item.classList.toggle('active', item.dataset.view===view));
+      if (updateHash && location.hash !== `#${view}`) history.pushState({view},'',`#${view}`);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    navItems.forEach(item => item.addEventListener('click', event => {event.preventDefault();showView(item.dataset.view)}));
+    window.addEventListener('popstate', () => showView(location.hash.slice(1)||'home',false));
+    const storedTheme = localStorage.getItem('class-space-theme');
+    if (storedTheme==='dark') document.documentElement.dataset.theme='dark';
+    const themeButton=document.getElementById('themeToggle');
+    function setThemeButton(){const dark=document.documentElement.dataset.theme==='dark';themeButton.setAttribute('aria-label',dark?'Attiva tema chiaro':'Attiva tema scuro');}
+    setThemeButton();
+    themeButton.addEventListener('click',()=>{const dark=document.documentElement.dataset.theme==='dark';if(dark)delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme='dark';localStorage.setItem('class-space-theme',dark?'light':'dark');setThemeButton()});
+    showView(location.hash.slice(1)||'home',false);
+  </script>
 </body>
 </html>
+
