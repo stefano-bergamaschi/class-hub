@@ -30,6 +30,7 @@
 const CONFIG={timeZone:'Europe/Rome',calendars:{exams:'992a2370cd24e7e5197f368e2f7265614d6fd49ca89ed59d22579968c4ee71ac@group.calendar.google.com',notices:'a08d5e9901e885e206dfaaba92831b4b65b273a82c8e2d752eb5c4c196aa6fcc@group.calendar.google.com',homework:'74712e1ebdb62a7eb7c8752ca2238cdfcb0d2e868f9a42bf74c26408eaf530ed@group.calendar.google.com'},apiKey:'AIzaSyCYjf-s9zT6OZLpjdJovkrmw8_EXMSJDrs'};
 const $=id=>document.getElementById(id);const pageButtons=[...document.querySelectorAll('[data-page]')];
 const state={page:'home',mode:'program',week:'',selectedDay:'',events:{exams:[],notices:[],homework:[]},loadedStart:'',loadedEnd:'',programCursor:'',dataReady:false,rangeQueue:Promise.resolve(),initialRequest:null,programObserver:null,programLoading:false,eventsByDay:new Map()};
+const initialDay=dateKey();state.week=monday(initialDay);state.selectedDay=initialDay;state.programCursor=initialDay;
 function dateParts(date=new Date()){return Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:CONFIG.timeZone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]))}
 function dateKey(date=new Date()){const p=dateParts(date);return p.year+'-'+p.month+'-'+p.day}
 function addDays(key,count){const [y,m,d]=key.split('-').map(Number);return new Date(Date.UTC(y,m-1,d+count)).toISOString().slice(0,10)}
