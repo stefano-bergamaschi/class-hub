@@ -65,6 +65,36 @@
   .day-select button span{font-size:7px}
   .day-select button strong{font-size:14px}
 }
+/* Gerarchia degli eventi: linee tra blocchi, mai tra singoli eventi */
+.home-section{padding-bottom:20px}
+.home-section>div[aria-live="polite"]{padding-left:9px}
+.home-section h2{margin-bottom:8px;padding-bottom:7px}
+.home-section .entry{padding:8px 0}
+.home-section .entry p{margin-top:5px;line-height:1.5}
+.agenda-day:not(.calendar-day){padding:20px 0 22px;border-bottom:1px solid var(--line)}
+.agenda-day:not(.calendar-day) h3{margin-bottom:9px}
+.agenda-day:not(.calendar-day) .agenda-items{padding-left:10px}
+.agenda-day:not(.calendar-day) .entry{padding:8px 0}
+.agenda-day:not(.calendar-day) .entry p{margin-top:5px;line-height:1.5}
+@media(max-width:640px){
+  .content{padding-top:20px}
+  .home-grid{gap:17px;padding-inline:4px}
+  .home-section{padding-bottom:16px}
+  .home-section h2{margin-bottom:6px;padding-bottom:6px}
+  .home-section>div[aria-live="polite"]{padding-left:8px}
+  .home-section .entry{padding:7px 0}
+  .home-section .entry p{margin-top:4px;line-height:1.48}
+  .home-section.subjects{margin-top:21px;padding-top:2px}
+  .agenda-day:not(.calendar-day){padding:17px 0 19px}
+  .agenda-day:not(.calendar-day) h3{margin-bottom:7px}
+  .agenda-day:not(.calendar-day) .agenda-items{padding-left:8px}
+  .agenda-day:not(.calendar-day) .entry{padding:7px 0}
+  .agenda-day:not(.calendar-day) .entry p{margin-top:4px;line-height:1.48}
+}
+@media(max-width:380px){
+  .home-section>div[aria-live="polite"]{padding-left:6px}
+  .agenda-day:not(.calendar-day) .agenda-items{padding-left:7px}
+}
 </style>
 </head>
 <body>
