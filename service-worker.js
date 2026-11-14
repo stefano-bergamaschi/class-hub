@@ -1,5 +1,5 @@
 'use strict';
-const CACHE_NAME='class-hub-v8';
+const CACHE_NAME='class-hub-v9';
 const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icons/icon.svg','./assets/class-hub-logo.svg'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)));self.skipWaiting()});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('class-hub-')&&key!==CACHE_NAME).map(key=>caches.delete(key)))));self.clients.claim()});
